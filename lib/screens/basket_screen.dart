@@ -7,6 +7,8 @@ import '../services/basket_provider.dart';
 import '../services/store_settings_provider.dart';
 import '../services/api_service.dart';
 import '../widgets/chain_badge.dart';
+import '../widgets/basket_selector_sheet.dart';
+import '../widgets/basket_qr_dialog.dart';
 
 class BasketScreen extends StatefulWidget {
   const BasketScreen({Key? key}) : super(key: key);
@@ -219,8 +221,36 @@ class _BasketScreenState extends State<BasketScreen> with SingleTickerProviderSt
     if (basket.items.isEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('סל הקניות שלי 🧺'),
-          centerTitle: true,
+          title: InkWell(
+            onTap: () => BasketSelectorSheet.show(context),
+            borderRadius: BorderRadius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.shopping_basket_rounded, size: 20, color: Color(0xFF10B981)),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      basket.currentBasketName,
+                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                ],
+              ),
+            ),
+          ),
+          centerTitle: false,
+          actions: [
+            IconButton(
+              tooltip: 'כל הסלים שלי והחלפת גרסאות',
+              icon: const Icon(Icons.folder_copy_outlined, color: Colors.blueAccent),
+              onPressed: () => BasketSelectorSheet.show(context),
+            ),
+          ],
         ),
         body: Center(
           child: Padding(
@@ -230,15 +260,26 @@ class _BasketScreenState extends State<BasketScreen> with SingleTickerProviderSt
               children: [
                 Icon(Icons.shopping_basket_outlined, size: 76, color: Colors.grey.shade400),
                 const SizedBox(height: 16),
-                const Text(
-                  'הסל שלך ריק כרגע.',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Text(
+                  'הסל "${basket.currentBasketName}" ריק כרגע.',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 const Text(
                   'סרוק ברקודים או חפש מוצרים כדי לגלות איך הכי כדאי לחלק את הקניות שלך בצורה חכמה!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                const SizedBox(height: 20),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  ),
+                  icon: const Icon(Icons.folder_copy_outlined),
+                  label: const Text('בחר סל אחר או צור סל חדש 🧺'),
+                  onPressed: () => BasketSelectorSheet.show(context),
                 ),
               ],
             ),
@@ -249,8 +290,29 @@ class _BasketScreenState extends State<BasketScreen> with SingleTickerProviderSt
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('סל הקניות שלי 🧺'),
-        centerTitle: true,
+        title: InkWell(
+          onTap: () => BasketSelectorSheet.show(context),
+          borderRadius: BorderRadius.circular(10),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.shopping_basket_rounded, size: 20, color: Color(0xFF10B981)),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    basket.currentBasketName,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const Icon(Icons.arrow_drop_down, color: Colors.grey),
+              ],
+            ),
+          ),
+        ),
+        centerTitle: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: TabBar(
@@ -266,6 +328,16 @@ class _BasketScreenState extends State<BasketScreen> with SingleTickerProviderSt
           ),
         ),
         actions: [
+          IconButton(
+            tooltip: 'שתף סל נוכחי ב-QR 📲',
+            icon: const Icon(Icons.qr_code_2_rounded, color: Color(0xFF10B981)),
+            onPressed: () => BasketQrDialog.show(context, basket.activeBasket),
+          ),
+          IconButton(
+            tooltip: 'ניהול וגרסאות סלים',
+            icon: const Icon(Icons.folder_copy_outlined, color: Colors.blueAccent),
+            onPressed: () => BasketSelectorSheet.show(context),
+          ),
           IconButton(
             icon: _isLoading
                 ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))

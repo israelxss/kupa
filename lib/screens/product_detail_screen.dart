@@ -5,6 +5,7 @@ import '../services/api_service.dart';
 import '../services/basket_provider.dart';
 import '../services/store_settings_provider.dart';
 import '../widgets/chain_badge.dart';
+import '../widgets/basket_selector_sheet.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final String barcode;
@@ -189,14 +190,38 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         icon: const Icon(Icons.add_shopping_cart),
-                        label: Text('הוסף לסל ($_quantityToAdd יח\') ➕', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        label: Text('הוסף לסל (${context.watch<BasketProvider>().currentBasketName}) ➕',
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis),
                         onPressed: () {
+                          final currentBasket = context.read<BasketProvider>().activeBasket;
                           context.read<BasketProvider>().addItem(widget.barcode, result.itemName, qty: _quantityToAdd);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('נוספו $_quantityToAdd יח\' מ-"${result.itemName}" לסל!')),
+                            SnackBar(
+                              content: Text('נוספו $_quantityToAdd יח\' לסל "${currentBasket.name}"! 🛒'),
+                              backgroundColor: const Color(0xFF10B981),
+                            ),
                           );
                         },
                       ),
+                    ),
+                    const SizedBox(width: 8),
+                    // Choose or Create specific basket
+                    IconButton.filledTonal(
+                      tooltip: 'בחר או צור סל ייעודי למוצר זה',
+                      style: IconButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        padding: const EdgeInsets.all(12),
+                      ),
+                      icon: const Icon(Icons.folder_special_outlined, color: Colors.blueAccent),
+                      onPressed: () {
+                        BasketSelectorSheet.show(
+                          context,
+                          itemBarcodeToAdd: widget.barcode,
+                          itemNameToAdd: result.itemName,
+                          quantityToAdd: _quantityToAdd,
+                        );
+                      },
                     ),
                   ],
                 ),

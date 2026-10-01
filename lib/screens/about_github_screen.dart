@@ -163,7 +163,7 @@ class AboutGithubScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
             Text(
-              'קופה • גרסה 1.0.0 • מופץ תחת רישיון MIT חופשי',
+              'קופה • גרסה 2.0.0 • מופץ תחת רישיון MIT חופשי',
               style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
             ),
           ],

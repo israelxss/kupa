@@ -45,8 +45,17 @@ Under Israel's **Food Price Transparency Law (חוק שקיפות המחירים
 * **Price Discrepancy Warnings:** If moved to a more expensive store, Kupa highlights the price variance (`Cheaper at X — save ₪Y`) and provides a **One-Click Restore (↩️ החזר)** action.
 * **Smart Single-Store Tab:** Offers a side-by-side total if you prefer to purchase all basket items at a single retailer.
 
+### 🧺 Multi-Basket Management & Versioning (New in v2.0.0)
+* **Custom Named Baskets:** Create and switch between multiple baskets (e.g. *"Shabbat Shopping"*, *"Cleaning Supplies"*, *"Bulk Groceries"*).
+* **Direct Allocation on Scan:** Assign scanned products directly to any basket or spin up a new basket on the fly.
+* **Instant Duplication & Versioning:** Duplicate and save revisions of existing baskets with a single click.
+
+### 📲 Instant QR Basket Sharing & Importing (New in v2.0.0)
+* **Zero-Cloud QR Sync:** Generate ultra-compact QR codes encoding your basket data directly on-device.
+* **Smart Camera Detection:** Scanning a Kupa QR code automatically prompts to import and activate the shared basket on any device.
+
 ### 💾 Persistent State & Offline-Tolerant UX
-* Preserves your custom basket, items, quantities, and chosen stores across app closures via local storage.
+* Preserves your custom baskets, items, quantities, and chosen stores across app closures and updates via local storage.
 * High-resolution official store branding icons with embedded caching.
 * Automatic Dark Mode synchronized with Android system appearance.
 
@@ -63,6 +72,7 @@ Kupa is built purely with native-compiled Flutter, adhering to strict zero-bloat
 | **[`http`](https://pub.dev/packages/http)** | `^1.6.0` | Asynchronous REST client interfacing with the transparency price engines. |
 | **[`shared_preferences`](https://pub.dev/packages/shared_preferences)** | `^2.5.5` | Key-value disk persistence for shopping baskets and app configuration. |
 | **[`intl`](https://pub.dev/packages/intl)** | `^0.20.3` | Localization, numeral normalization, and currency formatting (`₪ ILS`). |
+| **[`qr_flutter`](https://pub.dev/packages/qr_flutter)** | `^4.1.0` | Ultra-fast offline vector QR code rendering for seamless basket sharing. |
 | **[`url_launcher`](https://pub.dev/packages/url_launcher)** | `^6.3.2` | External intent launcher for Open Data repositories and documentation. |
 | **[`flutter_svg`](https://pub.dev/packages/flutter_svg)** | `^2.3.0` | Vector rendering for UI icons and high-density store visual badges. |
 
