@@ -1,4 +1,4 @@
-package com.supermarket.supermarket_scanner_app
+package com.israelxss.kupa
 
 import io.flutter.embedding.android.FlutterActivity
 
