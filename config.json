@@ -1,0 +1,6 @@
+{
+  "search_radius_km": 10.0,
+  "max_nearby_stores": 20,
+  "default_city": "ראשון לציון",
+  "comment": "הגדרות קופה אופליין: search_radius_km קובע את רדיוס החיפוש המקסימלי בקילומטרים לסניפים קרובים"
+}

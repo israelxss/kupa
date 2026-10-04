@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Data cache and backups
+data_cache/
+tmp_backup/
+sync_state.json
+
+# Environment / IDE
+.venv/
+venv/
+.idea/
+.vscode/
